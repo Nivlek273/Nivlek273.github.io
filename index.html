@@ -31,7 +31,7 @@
 		<div class="container row menu-bar mobile-fixed-menu">
 			<ul id="main-menu" class="column">
 				<li class=""><a href="javascript:void(0)" class="nav-btn" role="menuitem">Menu Link</a></li>
-				<li id="submenu-1" class="submenu-container" data-button="nav-btn-1">
+				<li id="submenu-1" class="submenu-container" data-button="nav-btn-1" style="display:none;">
 
 					<ul class="sub-menu" aria-hidden="false" role="menu">
 						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
@@ -40,7 +40,7 @@
 					</ul>
 				</li>
 				<li id="nav-btn-1" class="has-submenu"><a href="javascript:void(0)" class="siteMenu_collapsed nav-btn" aria-haspopup="true" tabindex="0">Submenu</a></li>
-				<li id="submenu-2" class="submenu-container" data-button="nav-btn-2">
+				<li id="submenu-2" class="submenu-container" data-button="nav-btn-2" style="display:none;">
 
 					<ul class="sub-menu" aria-hidden="false" role="menu">
 						<li class="has-submenu siteMenu_collapsed">
@@ -147,6 +147,8 @@
 			$('#side-nav').siteMenu({
 				mobileOnly: true
 			});
+			
+			$('.submenu-container').css('display', '');
 		});
 
 		$(document).resize(function () {
