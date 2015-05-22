@@ -1,9 +1,160 @@
-<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html class="no-js" lang="">
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/grid.css" />
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="js/vendor/respond.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/vendor/rem.min.js"></script>
+	<![endif]-->
+
+	<style>
+	</style>
 </head>
 <body>
-	<h1>Hello World</h1>
-	<p>I'm hosted with GitHub Pages.</p>
+	<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+	<div id="meta-format"></div>
+	<header class="container">
+		<h1 id="site-name">Kelvin White's Portfolio Site</h1>
+	</header>
+	<nav>
+		<div class="container row menu-bar mobile-fixed-menu">
+			<ul id="main-menu" class="column">
+				<li class=""><a href="javascript:void(0)" class="nav-btn" role="menuitem">Menu Link</a></li>
+				<li id="submenu-1" class="submenu-container" data-button="nav-btn-1">
+
+					<ul class="sub-menu" aria-hidden="false" role="menu">
+						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+					</ul>
+				</li>
+				<li id="nav-btn-1" class="has-submenu"><a href="javascript:void(0)" class="siteMenu_collapsed nav-btn" aria-haspopup="true" tabindex="0">Submenu</a></li>
+				<li id="submenu-2" class="submenu-container" data-button="nav-btn-2">
+
+					<ul class="sub-menu" aria-hidden="false" role="menu">
+						<li class="has-submenu siteMenu_collapsed">
+							<a href="javascript:void(0)" role="menuitem" class="siteMenu_item" aria-haspopup="true" tabindex="0">Nested Submenu</a>
+							<ul class="sub-menu" aria-hidden="false" role="menu">
+
+								<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+								<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+								<li class="has-submenu siteMenu_collapsed">
+									<a href="javascript:void(0)" role="menuitem" class="siteMenu_item" aria-haspopup="true" tabindex="0">Nested Submenu</a>
+									<ul class="sub-menu" aria-hidden="false" role="menu">
+										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+					</ul>
+				</li>
+				<li id="nav-btn-2" class="has-submenu"><a href="javascript:void(0)" class="siteMenu_collapsed nav-btn" aria-haspopup="true" tabindex="0">Submenu</a></li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<section>
+		<div class="container">
+			<h1>Test Page</h1>
+			<h2>Heading 2</h2>
+			<h3>Heading 3</h3>
+			<h4>Heading 4</h4>
+			<h5>Heading 5</h5>
+			<h6>Heading 6</h6>
+			<p>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad. Ea nam error audiam, oratio nostrud pro id. Ut sea cetero labitur gubergren, munere maiorum nostrum vim ut, te feugiat vulputate cum. Choro volumus sapientem te sed, legimus splendide ad nec.</p>
+			<ul>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>
+					Lorem ipsum dolor sit amet
+					<ul>
+						<li>Lorem ipsum dolor sit amet</li>
+						<li>Lorem ipsum dolor sit amet</li>
+						<li>Lorem ipsum dolor sit amet</li>
+					</ul>
+				</li>
+			</ul>
+			<ol>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+			</ol>
+			<blockquote>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad.<cite>Cicero</cite></blockquote>
+		</div>
+		<div class="container">
+			<h4>Block Grid</h4>
+			<div class="block-grid">
+				<div><img src="./img/scifiThumb.jpg" title="scifi small placeholder" alt="scifi small placeholder" /></div>
+				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
+				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
+				<div><img src="./img/scifiThumb.jpg" title="scifi small placeholder" alt="scifi small placeholder" /></div>
+				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
+				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
+				<div><img src="./img/scifiThumb.jpg" title="scifi small placeholder" alt="scifi small placeholder" /></div>
+				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
+				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
+				<div><img src="./img/scifiThumb.jpg" title="scifi small placeholder" alt="scifi small placeholder" /></div>
+				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
+				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
+			</div>
+		</div>
+		<div class="container">
+			<h4>Vertical Nav</h4>
+			<div class="row">
+				<div class="menu-bar vertical-menu column">
+					<a href="javascript:void(0)" id="side-nav-btn" class="siteMenu_collapsed nav-btn show-small" role="menuitem">Menu Link</a>
+					<div id="side-nav" class="submenu-container" data-button="side-nav-btn">
+						<ul class="sub-menu" aria-hidden="false" role="menu">
+							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+
+			$('#main-menu  .submenu-container').each(function () {
+				$(this).siteMenu();
+			});
+
+			$('#side-nav').siteMenu({
+				mobileOnly: true
+			});
+		});
+
+		$(document).resize(function () {
+
+		});
+
+	</script>
+
 </body>
 </html>

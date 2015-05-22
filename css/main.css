@@ -1,0 +1,645 @@
+/*! HTML5 Boilerplate v5.0.0 | MIT License | http://h5bp.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Browser Upgrade Prompt
+   ========================================================================== */
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+#meta-format { display: none !important; }
+#meta-format { content: "small"; }
+body { 
+    background: #fbfbfb; 
+    margin-bottom: 20vh;
+}
+
+/*Medium screens (641px)*/
+@media (min-width: 40.0625em) {
+    html { font-size: 1.125em; }
+    #meta-format { content: 'medium'; }
+}
+
+/*Large screens (1025px)*/
+@media (min-width: 64.0625em) {
+    html { font-size: 1.25em; }
+    #meta-format { content: 'large'; }
+}
+
+img {
+    max-width: 100%;
+}
+
+/*--------------- 
+    Fonts
+---------------*/
+
+h1 {
+    font-size: 2rem;
+    line-height: 1;
+    padding-top: 0.1rem;
+}
+
+h2 {
+    font-size: 1.6rem;
+    line-height: 1.125;
+    padding-top: 0.3rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    line-height: 1.24;
+    padding-top: 0.55rem;
+}
+
+h4 {
+    font-size: 1rem;
+    line-height: 1.3;
+    padding-top: 0.2rem;
+}
+
+h5 {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding-top: 0.3rem;
+    margin-bottom: 1.2rem;
+}
+
+h6 {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding-top: 0.3rem;
+    margin-bottom: 1.2rem;
+    font-weight: normal;
+}
+
+p, ul, ol, blockquote, a, table, form {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote {
+    margin-bottom: 0.9rem;
+}
+
+ul, ol {
+    padding-left: 1rem;
+}
+
+blockquote {
+    padding: 0.4rem 0.8rem;
+    margin-top: 1.2rem;
+    border-left: 2px solid #ddd;
+}
+
+    blockquote cite {
+        display: block;
+        font-size: 0.7rem;
+        color: #666;
+    }
+
+        blockquote cite:before {
+            content: "- ";
+        }
+
+h1#site-name {
+    font-size: 1.4rem;
+    line-height: 1.85rem;
+    padding-top: 0;
+}
+
+/*------------------
+    Helper Classes
+--------------------*/
+/*
+- - -   Hiding Class Chart   - - -
+
+            |<=40em |>40em, |>64em
+            |       |<=64em |
+.show-small | show  | hide  | hide
+.show-medium| hide  | show  | hide
+.show-large | hide  | hide  | show
+.hide-small | hide  | show  | show
+.hide-medium| show  | hide  | show
+.hide-large | show  | show  | hide
+*/
+
+@media (max-width: 40em) {
+    .hide-small, .show-medium {
+        display: none !important;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    .show-small {
+        display: none !important;
+    }
+}
+
+@media (min-width: 40.0625em) and (max-width: 64em) {
+    .hide-medium {
+        display: none !important;
+    }
+}
+
+@media (max-width: 64em) {
+    .show-large {
+        display: none !important;
+    }
+}
+
+@media (min-width: 64.0625em) {
+    .show-medium, hide-large {
+        display: none !important;
+    }
+}
+/* /hiding classes  */
+
+.caret-down, .caret-left, .caret-up, .caret-right {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.1875rem;
+    vertical-align: middle;
+}
+
+.caret-down {
+    border-top: 0.3125rem solid;
+    border-right: 0.25rem solid transparent;
+    border-left: 0.25rem solid transparent;
+}
+
+.caret-left {
+    border-top: 0.25rem solid transparent;
+    border-right: 0.3125rem solid;
+    border-bottom: 0.25rem solid transparent;
+}
+
+.caret-up {
+    border-bottom: 0.3125rem solid;
+    border-right: 0.25rem solid transparent;
+    border-left: 0.25rem solid transparent;
+}
+
+.caret-right {
+    border-top: 0.25rem solid transparent;
+    border-bottom: 0.25rem solid transparent;
+    border-left: 0.3125rem solid;
+}
+
+
+/*------------------
+    Horizontal Menu
+------------------*/
+
+.menu-bar {
+    width: 100%;
+}
+
+.menu-bar, .menu-bar > ul {
+    overflow: visible;
+    background: #fbfbfb;
+    position: relative;
+    z-index: 100;
+}
+
+    .menu-bar ul {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+        display: inline-block;
+    }
+
+    .menu-bar > ul {
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .menu-bar ul ul {
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        background-color: #eee;
+    }
+
+    .menu-bar ul li {
+        padding: 0px;
+    }
+
+    .menu-bar a {
+        display: block;
+        padding: 0.33rem 0.5rem;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .menu-bar li > a:hover, .menu-bar a.nav-btn:hover {
+        background: #333;
+        color: #fff;
+    }
+
+    .menu-bar a.siteMenu_open {
+        background: #eee;
+    }
+
+    .menu-bar ul ul ul {
+        position: relative;
+        top: 0;
+        padding-left: 1rem;
+        padding-right: 0;
+    }
+
+.mobile-fixed-menu {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    z-index: 110;
+    text-align: center;
+}
+
+    .mobile-fixed-menu .submenu-container {
+        position: fixed;
+        bottom: 1.875rem;
+        width: 90%;
+        left: 5%;
+    }
+
+    .mobile-fixed-menu ul li {
+        display: inline-block;
+    }
+
+    .mobile-fixed-menu ul ul {
+        position: relative;
+    }
+
+        .mobile-fixed-menu ul ul li {
+            width: 90%;
+            text-align: left;
+        }
+
+        .mobile-fixed-menu ul ul ul li {
+            width: 100%;
+        }
+
+
+@media (min-width: 40.0625em) {
+    .mobile-fixed-menu .submenu-container {
+        position: relative;
+        width: 0;
+        height: 0;
+        overflow: visible;
+        top: 0.65rem;
+        bottom: auto;
+        left: auto;
+        margin: 0 -4px 0 0;
+    }
+
+    .menu-bar {
+        position: static;
+        padding: 0;
+        width: 90%;
+        text-align: initial;
+    }
+
+        .menu-bar ul {
+            position: relative;
+            padding: 0;
+        }
+
+            .menu-bar ul ul {
+                position: absolute;
+                width: auto;
+                left: auto;
+                padding: 0;
+            }
+
+
+        .menu-bar > ul > li {
+            display: inline-block;
+            position: relative;
+        }
+
+            .menu-bar > ul > li.has-submenu.last-item > ul {
+                right: 0px;
+            }
+            
+        .menu-bar ul ul > li a {
+            height: auto;
+        }
+        
+        .menu-bar > ul > li > ul.sub-menu {
+        }
+
+        .menu-bar ul.sub-menu li {
+            display: block;
+            position: relative;
+            min-width: 7.5rem;
+            width: auto;
+            text-align: inherit;
+        }
+}
+
+/*---------  SiteMenu Classes  --------*/
+.siteMenu_hidden {
+    display: none !important;
+}
+
+
+/*---------- Dropdown Classes --------*/
+
+.drop_hidden {
+    display: none !important;
+}
+
+/*---------- Block Grid ----------*/
+.block-grid {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-content: space-around;
+}
+
+.block-grid > * {
+    max-width:8rem;
+    margin: 0.25rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers:
+ * http://juicystudio.com/article/screen-readers-display-none.php
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+    /*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+    .visuallyhidden.focusable:active,
+    .visuallyhidden.focusable:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+    }
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   http://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
