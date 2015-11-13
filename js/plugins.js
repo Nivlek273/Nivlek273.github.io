@@ -23,6 +23,222 @@
 
 // Place any jQuery/helper plugins in here.
 
+/*------ Table Fixer ----------*/
+
+function tableFix(t) {
+    var $table=$(t),
+        $tbody,
+        $allRows = new Array(),
+        columns = 0,
+        columnWidths = new Array(),
+        tableCells = new Array();
+
+    $table.children('caption').remove();
+    $tbody = $table.children('tbody');
+
+    if ($table.children('thead').length) {
+        $table.children('tbody').prepend($table.children('thead').html());
+        $table.children('thead').remove();
+    }
+
+    if ($table.children('tfoot').length) {
+        $table.children('tbody').append($table.children('tfoot').html());
+        $table.children('tfoot').remove();
+    }
+
+    $tbody.children('tr').each(function () {
+        $allRows.push($(this));
+        $(this).children().css('width', '');
+    })
+
+    columns = $allRows[0].children('td, th').length;
+
+    $allRows[0].children('[colspan]').each(function () {
+        columns += $(this).attr('colspan') - 1;
+    })
+
+
+    for (i = 0; i < $allRows.length; i++) {
+        var rowCells = new Array();
+        $($allRows[i].children('td, th')).each(function () {
+            rowCells.push($(this));
+            if ($(this).attr('colspan')) {
+                var spanWidth = parseInt($(this).attr('colspan'));
+                for (j = 0; j < spanWidth - 1; j++) {
+                    rowCells.push(null);
+                }
+            }
+        })
+        tableCells.push(rowCells);
+    }
+
+    for (i = 0; i < columns; i++) {
+        var reduceColspan = false;
+        for (j = 0; j < tableCells.length; j++) {
+            var $cell = $(tableCells[j][i]);
+            if ($cell.length && !$cell.attr('colspan') || parseInt($cell.attr('colspan')) < 2) {
+                j = tableCells.length;
+            } else {
+                if (j == tableCells.length - 1 && reduceColspan == false) {
+                    j = -1;
+                    columns--;
+                    reduceColspan = true;
+                } else {
+                    if ($cell.length && reduceColspan) {
+                        var newColspan = parseInt($cell.attr('colspan')) - 1;
+                        $cell.attr('colspan', newColspan);
+                        tableCells[j].splice(i + 1, 1);
+                    }
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < columns; i++) {
+        for (j = 0; j < tableCells.length; j++) {
+            var $cell = $(tableCells[j][i]);
+            if ($cell.length && !$cell.attr('colspan') || parseInt($cell.attr('colspan')) < 2) {
+                var x = Math.round($cell.outerWidth());
+                columnWidths.push(x);
+                j = tableCells.length;
+            }
+        }
+    }
+
+    $allRows.forEach(function (d) {
+        var $thisRow = $(d);
+
+        if (!$thisRow.attr('height')) {
+            $thisRow.attr('height', $thisRow.outerHeight());
+        }
+
+        if ($thisRow.children('[rowspan]')) {
+            rowSpanFix($thisRow);
+        }
+    });
+
+    $allRows.forEach(function (e) {
+        rowFix(e, columnWidths);
+    });
+
+    if (!$table.attr('border') || $table.attr('border') == "0") {
+        replacer($tbody, "table", null);
+    } else {
+        replacer($tbody, "table table-border", null)
+    }
+
+    $table.replaceWith($table.html());
+}
+
+//Adds <td>'s underneath cells with the rowspan property
+function rowSpanFix(r) {
+    var $thisRow = $(r);
+    var multiRow = new Array();
+    var maxRows = 0;
+    var $nextRow = $thisRow.next('tr');
+
+    $thisRow.children('td, th').each(function () {
+        if ($(this).attr('rowspan')) {
+            multiRow.push(parseInt($(this).attr('rowspan')));
+            if (parseInt($(this).attr('rowspan')) > maxRows) {
+                maxRows = parseInt($(this).attr('rowspan'));
+            }
+        } else {
+            multiRow.push(parseInt('0'));
+        }
+
+    });
+
+    for (c = 0; c < maxRows - 1; c++) {
+        for (x = 0; x < multiRow.length; x++) {
+            if (multiRow[x] > c + 1) {
+                $($nextRow.children('td, th')[x]).before('<td></td>');
+            }
+        }
+        $nextRow = $($nextRow).next('tr');
+    }
+
+}
+
+//Handles replacement of a row and its cells
+function rowFix(r, c) {
+    var iMod = 0;
+    var rowHeight = 0;
+    var $thisRow = $(r);
+    var columnWidths = c;
+    var rowWidth = $thisRow.outerWidth();
+
+    if ($thisRow.attr('height')) {
+        rowHeight = $thisRow.attr('height');
+    } else {
+        rowHeight = $thisRow.outerHeight();
+    }
+
+    $thisRow.children('td, th').each(function (i) {
+        var span = columnWidths[i + iMod];
+        if ($(this).attr('colspan')) {
+            for (j = 1; j < $(this).attr('colspan') ; j++) {
+                span += columnWidths[i + iMod + j];
+            }
+            iMod += $(this).attr('colspan') - 1;
+            $(this).css('flex-grow', $(this).attr('colspan'));
+        }
+        if ($(this).is(':last-child')) {
+            //var totalSpan = 0;
+            //for (k = i + iMod; k >= 0; k--) {
+            //    totalSpan += columnWidths[k];
+            //    if (totalSpan > 12) {
+            //        span = span - totalSpan + 12;
+            //    }
+            //}
+            iMod = 0;
+        }
+        
+        var flexBasis = 12 * span / rowWidth;
+        var flexGrow = 12 * span / rowWidth;
+        
+        $(this).css('flex-basis', flexBasis + "rem");
+        $(this).css('flex-grow', flexGrow);
+        
+        if ($(this).is('td')) {
+            replacer($(this), "td column", null);
+        } else {
+            replacer($(this), "th column", null);
+        }
+    });
+
+    //$thisRow.children().css('min-height', parseInt(rowHeight));
+    $thisRow.each(function (i) {
+        replacer($(this), "tr row", null);
+    })
+}
+
+//Accepts an element and classes as arguments. Replaces the element with a div along with classes and styles
+function replacer(e, c, w) {
+    var $el = $(e),
+        styles = "",
+        newClass = c,
+        flexBasis = w;
+        contents = $el.html();
+
+    if ($el.attr('bgcolor')) {
+        styles += "background:" + $el.attr('bgcolor') + "; ";
+    } else {
+        if ($el.attr('background')) {
+            styles += "background-image:url('" + $el.attr('background') + "'); ";
+        }
+    }
+    if ($el.attr('style')) {
+        styles += $el.attr('style');
+    }
+
+    if (flexBasis) {
+        styles += "flex-basis:" + flexBasis;
+    }
+
+    $el.replaceWith('<div class="mod-' + newClass + '" style="' + styles + '">' + contents + '</div>');
+}
+
 //------ Click Outside ------
 /*!
  * jQuery outside events - v1.1 - 3/16/2010
@@ -84,274 +300,31 @@
     };
 })(jQuery, document, 'outside');
 
-
-//Sitemenu
-//Based off of SlickNav
-/*!
-    SlickNav Responsive Mobile Menu v1.0.1
-    (c) 2014 Josh Cope
-    licensed under MIT
-*/
+//------- Dropdowns ----------
 ; (function ($, document, window) {
 
-    var siteMenu = 'siteMenu',
-        prefix = 'siteMenu',
-        defaults = {
-            duration: 150,
-            easingOpen: 'swing',
-            easingClose: 'swing',
-            closeOnClick: true,
-            closeOnClickOutside: true,
-            mobileOnly: false,
-            enableHover: false,
+    var Dropdown = 'Dropdown',
+        prefix='drop',
+        settings = {
             init: function () { },
             open: function () { },
             close: function () { }
         };
+            
 
-    function Plugin(element, options) {
+    function Plugin(element) {
         this.element = element;
-        this.settings = $.extend({}, defaults, options);
-        this._name = siteMenu;
+        this.settings = settings;
+        this._name = Dropdown;
+
         this.init();
-    }
-
-    Plugin.prototype.init = function () {
-        var $this = this,
-            menu = $(this.element).children('ul.sub-menu'),
-            buttonId = $(this.element).data('button');
-        settings = this.settings;
-
-        if (menu.length == 0 || !buttonId || $('#' + buttonId).length == 0) {
-            console.log('failed to create menu');
-            return;
-        }
-
-        $this.siteNav = menu;
-
-        $this.btn = $('#' + buttonId + ' > a.nav-btn');
-        if ($this.btn.length == 0) {
-            $this.btn = $('#' + buttonId);
-        }
-
-        console.log($this.btn);
-
-        if (settings.closeOnClickOutside) {
-            $this._clickOutside($this.btn);
-        }
-
-        //iterate over structure adding additional structure
-        var items = $this.siteNav.find('li');
-        $(items).each(function () {
-            var item = $(this),
-                data = {};
-            data.children = item.children('ul').attr('role', 'menu');
-            item.data('menu', data);
-            item.btn = item.children('a');
-
-            if ($(data.children).length) {
-                $this._clickOutside(item.btn);
-            }
-
-            item.children('a').attr('role', 'menuitem').click(function (event) {
-                if (settings.closeOnClick && !$(event.target).parent().closest('li').hasClass('has-submenu')) {
-                    $this.btn.click();
-                }
-            });
-
-        });
-
-        $(items).each(function () {
-            var data = $(this).data('menu');
-
-            $this._visibilityToggle(data.children, false, null, true);
-
-        });
-
-        //accesibility for button
-        $this._visibilityToggle($this.siteNav, false, 'init', true);
-
-        //Unhide if mobileOnly
-        if (settings.mobileOnly && $this._browserSize() != "small") {
-            $this.open();
-        }
-
-        //Close/Open on resize
-        $(window).resize(function () {
-
-            if ($this._hideAtSize()) {
-                $this.close();
-            }
-            else {
-                if ($this.siteNav.hasClass(prefix + '_hidden')) {
-                    $this.open();
-                }
-            }
-        });
-
-        //outline prevention for mouse
-        $(document).mousedown(function () {
-            $this._outlines(false);
-        });
-
-        $(document).keyup(function () {
-            $this._outlines(true);
-        });
-
-
-        //menu button click
-        $this.btn.click(function (e) {
-            console.log('firing');
-            e.preventDefault();
-            $this._closeOpenMenus();
-            $this._closeSubMenus($(this));
-            $this._menuToggle();
-        });
-
-        // Add hover if enabled
-        if (settings.enableHover) {
-            var startOpen = null,
-                startClose = null,
-                hoverGroup = $($this.btn.parent()).add($this.siteNav);
-            $(hoverGroup).hover(
-                function (e) {
-                    if ($this._browserSize() != "small") {
-                        if (startClose) { clearTimeout(startClose) }
-                        startOpen = window.setTimeout(function () {
-                            $this._closeOpenMenus();
-                            $this._closeSubMenus($(this));
-                            $this.open();
-                        }, 200);
-                    }
-                }, function (e) {
-                    if ($this._browserSize() != "small") {
-                        if (startOpen) { clearTimeout(startOpen) }
-                        startClose = window.setTimeout(function () {
-                            $this._closeSubMenus($(this));
-                            $this.close();
-                        }, 200);
-                    }
-                }
-            );
-        };
-
-
-        //click on menu parent
-        $this.siteNav.on('click', '.' + prefix + '_item', function (e) {
-            e.preventDefault();
-            $this._closeSubMenus($(this));
-            $this._itemClick($(this));
-        });
-
-        // check for enter key on menu button and menu parents
-        $($this.btn).keydown(function (e) {
-            var ev = e || event;
-            if (ev.keyCode == 13) {
-                e.preventDefault();
-                $this._closeOpenMenus();
-                $this._closeSubMenus($(this));
-                $this._menuToggle();
-            } else {
-                if (ev.keyCode == 9 && $this.btn.hasClass(prefix + '_open')) {
-                    window.setTimeout(function () {
-                        $this.siteNav.find('a')[0].focus();
-                        console.log($(':focus'));
-
-                    }, 1);
-
-                }
-            }
-        });
-
-        $this.siteNav.on('keydown', '.' + prefix + '_item', function (e) {
-            var ev = e || event;
-            if (ev.keyCode == 13) {
-                e.preventDefault();
-                $this._itemClick($(e.target));
-            }
-        });
     };
 
-    // Get browser size
-    Plugin.prototype._browserSize = function () {
-        var browserSize = "medium";
-        if ($('#meta-format').css('content')) {
-            browserSize = $('#meta-format').css('content').replace(/^"(.*)"$/, '$1');
-        }
-        return browserSize;
-    };
-    // Check mobileOnly and window
-    Plugin.prototype._hideAtSize = function () {
+    Plugin.prototype._dropdownToggle = function () {
         var $this = this;
         var settings = $this.settings;
-
-        if (!settings.mobileOnly || $this._browserSize() == "small") {
-            return true;
-        }
-        else {
-            if (settings.mobileOnly) {
-                return false;
-            }
-        }
-    };
-
-    // Close the open menu when another is clicked
-    Plugin.prototype._closeOpenMenus = function (el) {
-        //var $this = this;
-        //var btn = $this.btn;
-        //var openMenus = $('.nav-btn.' + prefix + '_open').not(btn);
-
-        //$(openMenus).click();
-    };
-
-    // Close any open sub-menus when another menu is opened
-    Plugin.prototype._closeSubMenus = function (el) {
-        //var $this = this;
-        //var clickedBtn = $(el).parent();
-        //var openSubmenus = $('li.' + prefix + '_open').not(function () {
-        //    var c = clickedBtn;
-        //    var p = $(this);
-
-        //    while (c.length > 0 && c.not(p).length > 0) {
-        //        c = c.parent();
-        //    };
-        //    return !!c.length;
-        //});
-        //var openLinks = openSubmenus.children('a');
-
-        //$this._itemClick(openLinks);
-    };
-
-    // Close menu when outside clicked
-    Plugin.prototype._clickOutside = function (el) {
-        var $this = this;
-        var siteNav = $this.siteNav;
-        var btn = $(el);
-        var container;
-
-        if ($(el).hasClass('nav-btn')) {
-            $(siteNav).on('clickoutside keydownoutside', function (event) {
-                var target = $(event.target);
-                if (!target.is(btn)) {
-                    $this.close();
-                }
-            });
-        } else {
-            $(btn.parent()).on('clickoutside keydownoutside', function (event) {
-                var target = $(event.target);
-                if (!target.is(btn) && btn.parent().hasClass(prefix + '_open')) {
-                    $this._itemClick(btn);
-                }
-            })
-
-        }
-    }
-
-    // Toggle for top-level buttons
-    Plugin.prototype._menuToggle = function (el) {
-        var $this = this;
         var btn = $this.btn;
-        var siteNav = $this.siteNav;
+        var drop = $this.drop;
 
         if (btn.hasClass(prefix + '_collapsed')) {
             btn.removeClass(prefix + '_collapsed');
@@ -360,174 +333,84 @@
             btn.removeClass(prefix + '_open');
             btn.addClass(prefix + '_collapsed');
         }
-        $this._visibilityToggle(siteNav, true, btn);
+
+        $this._visibilityToggle();
+    };
+    
+    
+
+    Plugin.prototype._visibilityToggle = function () {
+        var $this = this,
+            settings = $this.settings,
+            btn = $this.btn,
+            drop = $this.drop;
+
+        if (drop.hasClass(prefix + '_hidden')) {
+            drop.removeClass(prefix + '_hidden');
+        } else {
+            drop.addClass(prefix + '_hidden');
+        }
     };
 
-    // Toggle for sub-menu items
-    Plugin.prototype._itemClick = function (el) {
+    Plugin.prototype.init = function () {
         var $this = this;
-        var settings = $this.settings;
-        var data = el.data('menu');
-        if (!data) {
-            data = {};
-            data.arrow = el.children('.arrow');
-            data.ul = el.next('ul');
-            data.parent = el.parent();
-            el.data('menu', data);
-        }
-        if (data.parent.hasClass(prefix + '_collapsed')) {
-            data.arrow.html(settings.openedSymbol);
-            data.parent.removeClass(prefix + '_collapsed');
-            data.parent.addClass(prefix + '_open');
-            $this._visibilityToggle(data.ul, true, el);
-        } else {
-            data.arrow.html(settings.closedSymbol);
-            data.parent.removeClass(prefix + '_open');
-            data.parent.addClass(prefix + '_collapsed');
-            $this._visibilityToggle(data.ul, true, el);
-        }
-    };
+        var target = $this.element.id;
+        $this.btn = $('.dropdown-btn').filter(function(){
+            return $(this).attr('data-dropdown')==target;
+        });
+        $this.btn.addClass(prefix + '_collapsed');
+        $this.drop = $($this.element);
+        
+        $this._clickOutside($this.btn);
 
-    //Toggle visibility and accessibility tags
-    Plugin.prototype._visibilityToggle = function (el, animate, trigger, init) {
+        $this.btn.click(function (e) {
+            e.preventDefault();
+            $this._dropdownToggle();
+        });
+        
+    };
+    
+    Plugin.prototype._clickOutside = function (el) {
         var $this = this;
-        var settings = $this.settings;
-        var items = $this._getActionItems(el);
-        var duration = 0;
-        if (animate) {
-            duration = settings.duration;
-        }
-        if (el.hasClass(prefix + '_hidden')) {
-            el.removeClass(prefix + '_hidden');
-            el.slideDown(duration, settings.easingOpen, function () {
-                if (!init) {
-                    settings.open(trigger);
+        var btn = $(el);
+        
+        $($this.element).on('clickoutside keydownoutside', function(event){
+            if (!$($this.element).hasClass('drop_hidden')) {
+                var target = $(event.target);
+                if (!target.is(btn)) {
+                    $this.close();
                 }
-            });
-            el.attr('aria-hidden', 'false');
-            items.attr('tabindex', '0');
-            $this._setVisAttr(el, false);
-        } else {
-            el.slideUp(duration, this.settings.easingClose, function () {
-                el.attr('aria-hidden', 'true');
-                items.attr('tabindex', '-1');
-                $this._setVisAttr(el, true);
-
-                el.addClass(prefix + '_hidden');
-                if (!init) {
-                    settings.close(trigger);
-                }
-                else if (trigger == 'init') {
-                    settings.init();
-                }
-            });
-        }
-    };
-
-    //set attributes of element and children based on visibility
-    Plugin.prototype._setVisAttr = function (el, hidden) {
-        var $this = this;
-
-        //select non-hidden parents
-        var nonHidden = el.children('li').children('ul').not('.' + prefix + '_hidden');
-
-        // iterate over all items setting appropriate tags
-        if (!hidden) {
-            nonHidden.each(function () {
-                var ul = $(this);
-                ul.attr('aria-hidden', 'false');
-                var items = $this._getActionItems(ul);
-                items.attr('tabindex', '0');
-                $this._setVisAttr(ul, hidden);
-            });
-        } else {
-            nonHidden.each(function () {
-                var ul = $(this);
-                ul.attr('aria-hidden', 'true');
-                var items = $this._getActionItems(ul);
-                items.attr('tabindex', '-1');
-                $this._setVisAttr(ul, hidden);
-            });
-        }
-    };
-
-    // get all 1st level items that are clickable
-    Plugin.prototype._getActionItems = function (el) {
-        var data = el.data("menu");
-        if (!data) {
-            data = {};
-            var items = el.children('li');
-            var anchors = items.find('a');
-            data.links = anchors.add(items.find('.item'));
-            el.data('menu', data);
-        }
-        return data.links;
-    };
-
-    Plugin.prototype._outlines = function (state) {
-        if (!state) {
-            $('.item, .nav-btn').css('outline', 'none');
-        } else {
-            $('.item, .nav-btn').css('outline', '');
-        }
-    };
+            }
+        })
+    }
 
     Plugin.prototype.toggle = function () {
         var $this = this;
-        $this._menuToggle();
+        $this._dropdownToggle();
     };
 
     Plugin.prototype.open = function () {
         var $this = this;
         if ($this.btn.hasClass(prefix + '_collapsed')) {
 
-            $this._menuToggle();
+            $this._dropdownToggle();
         }
     };
 
     Plugin.prototype.close = function () {
         var $this = this;
-        if ($this.btn.hasClass(prefix + '_open') && $this._hideAtSize()) {
-            $this._closeSubMenus($(this));
-            $this._menuToggle();
+        if ($this.btn.hasClass(prefix + '_open')) {
+
+            $this._dropdownToggle();
         }
     };
 
-    $.fn[siteMenu] = function (options) {
-        var args = arguments;
+    $.fn[Dropdown] = function () {
+        return this.each(function () {
+            if (!$.data(this, 'plugin_' + Dropdown)) {
+                $.data(this, 'plugin_' + Dropdown, new Plugin(this));
+            }
+        })
+    }
 
-        // Is the first parameter an object (options), or was omitted, instantiate a new instance
-        if (options === undefined || typeof options === 'object') {
-            return this.each(function () {
-
-                // Only allow the plugin to be instantiated once due to methods
-                if (!$.data(this, 'plugin_' + siteMenu)) {
-
-                    // if it has no instance, create a new one, pass options to our plugin constructor,
-                    // and store the plugin instance in the elements jQuery data object.
-                    $.data(this, 'plugin_' + siteMenu, new Plugin(this, options));
-                }
-            });
-
-            // If is a string and doesn't start with an underscore or 'init' function, treat this as a call to a public method.
-        } else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-
-            // Cache the method call to make it possible to return a value
-            var returns;
-
-            this.each(function () {
-                var instance = $.data(this, 'plugin_' + siteMenu);
-
-                // Tests that there's already a plugin-instance and checks that the requested public method exists
-                if (instance instanceof Plugin && typeof instance[options] === 'function') {
-
-                    // Call the method of our plugin instance, and pass it the supplied arguments.
-                    returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
-                }
-            });
-
-            // If the earlier cached method gives a value back return the value, otherwise return this to preserve chainability.
-            return returns !== undefined ? returns : this;
-        }
-    };
 }(jQuery, document, window));

@@ -1,161 +1,161 @@
-﻿<!doctype html>
+<!doctype html>
 <html class="no-js" lang="">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/grid.css" />
-	<link rel="stylesheet" href="css/main.css">
-	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
-	<script src="js/vendor/respond.min.js"></script>
-	<!--[if lt IE 9]>
-		<script src="js/vendor/rem.min.js"></script>
-	<![endif]-->
-
-	<style>
-	</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css" />
+    <script src="js/vendor/modernizr-custom.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <script src="js/vendor/rem.min.js"></script>
+    <script src="js/vendor/html5shiv-printshiv.min.js"></script>
 </head>
+
 <body>
-	<!--[if lt IE 8]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
-	<div id="meta-format"></div>
-	<header class="container">
-		<h1 id="site-name">Kelvin White's Portfolio Site</h1>
-	</header>
-	<nav>
-		<div class="container row menu-bar mobile-fixed-menu">
-			<ul id="main-menu" class="column">
-				<li class=""><a href="javascript:void(0)" class="nav-btn" role="menuitem">Menu Link</a></li>
-				<li id="submenu-1" class="submenu-container" data-button="nav-btn-1" style="display:none;">
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="meta-format"></div>
+    <header>
+        <h1>Kelvin White</h1>
+        <h3>Web Developer</h3>
+    </header>
+    <section id="main">
+        <p>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae
+            an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad. Ea nam error audiam, oratio nostrud pro id. Ut sea
+            cetero labitur gubergren, munere maiorum nostrum vim ut, te feugiat vulputate cum. Choro volumus sapientem te
+            sed, legimus splendide ad nec.</p>
+        <h3>Sample Work</h3>
+        <h4>Raritan Valley Community College Internship</h4>
+        <p>I worked as a student intern at RVCC while earning my degree. In addition to helping faculty and staff with their pages, I updated the look and feel of some parts of the site. The following links show my redesign of the Technology Services section and my alterations to the code for the main menu flyouts.<br>
+        <a href="https://web.archive.org/web/20141025082928/http://www.raritanval.edu/admin/mis/tshome/techservices.html" target="_blank">Before</a> vs. <a href="https://web.archive.org/web/20150905212802/http://www.raritanval.edu/admin/mis/tshome/techservices.html" target="_blank">After</a>
+        <br>
+        <a href="https://web.archive.org/web/20141111054805/http://www.raritanval.edu/admin/MIS/TSHome/TSGuide/Accounts.html" target="_blank">Before</a> vs. <a href="https://web.archive.org/web/20150906231919/http://www.raritanval.edu/admin/MIS/TSHome/TSGuide/Accounts.html" target="_blank">After</a></p>
+        <h4>TableFixer Script</h4>
+        <p>Converts an HTML table into more responsive elements while maintaining the structure. The button below will run the script. Refresh the page to see the original again.</p>
+        
+        <div id='tableFix-example'>
+            <aside>
+                <a id="apply-tFix" class="kw_btn" href="javascript:void(0)">Apply TableFix</a>
+                <p>During my internship at RVCC, the college decided to make a new and fully responsive web site in a new CMS. The task of migrating hundreds, if not thousands, of old pages fell to a single webmaster and two part-time student interns. To make matters worse, most old pages were made by non-technical faculty members, and many used tables for layout.</p>
+        <p>The temporary solution I came up with was a bit of javascript that transformed tables into divs with Bootstrap classes. It doesn't produce very good HTML and the results can be unpredictable, but it does work. I've adapted this example to work without Bootstrap.</p>
+        <p>At the time of writng RVCC is still using their old site.</p>
+            </aside>
+            <article id='example-page'>
+                <table>
+                    <tbody>
+                        <h4>Old Page Using a Table for Layout</h4>
+                        <tr>
+                            <th width="220px"></th>
+                            <th colspan="2">Page Title</th>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#eee">
+                                <ul style="list-style:none;">
+                                    <li><h5>Menu</h5></li>
+                                    <li>Button</li>
+                                    <li>Button</li>
+                                    <li>Button</li>
+                                    <li>Button</li>
+                                    <li>Button</li>
+                                </ul>
+                            </td>
+                            <td width="180px">
+                                <p>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad.</p>
+                                <p>Ea nam error audiam, oratio nostrud pro id.</p>
+                            </td>
+                            <td width="400px">
+                                <p>With a bonus nested table that we want left alone</p>
+                                <table class="no-tableFix" border="1">
+                                    <thead>
+                                        <tr>
+                                            <th>Header 1</th>
+                                            <th>Header 2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Lorem ipsum dolor sit amet</td>
+                                            <td>Lorem ipsum dolor sit amet</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/nsf.jpg" alt="NSF Logo" /></td>
+                                            <td>Lorem ipsum dolor sit amet</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><img src="img/nsf.jpg" alt="NSF Logo" /></td>
+                            <td bgcolor="#aaa" colspan="2">
+                                <p>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad.</p>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </article>
+        </div>
+        <div id="demo-vertical-nav">
+            <h4>Vertical Nav</h4>
+            <div class="menu-bar vertical-menu">
+                <a href="javascript:void(0)" id="side-nav-btn" class="nav-btn  dropdown-btn" role="menuitem" data-dropdown="side-nav">Menu Link</a>
+                <div id="side-nav" class="submenu-container dropdown drop_hidden" data-button="side-nav-btn">
+                    <ul class="sub-menu" aria-hidden="false" role="menu">
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+                    </ul>
+                </div>
 
-					<ul class="sub-menu" aria-hidden="false" role="menu">
-						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
-						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
-						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
-					</ul>
-				</li>
-				<li id="nav-btn-1" class="has-submenu"><a href="javascript:void(0)" class="siteMenu_collapsed nav-btn" aria-haspopup="true" tabindex="0">Submenu</a></li>
-				<li id="submenu-2" class="submenu-container" data-button="nav-btn-2" style="display:none;">
+            </div>
+        </div>
+        <h4>Dropdowns</h4>
+        <a href="javascript:void(0);" class="dropdown-btn" data-dropdown="drop1">Button</a>
+        <div id="drop1" class="dropdown drop_hidden">
+            <p>This is a dropdown</p>
+        </div>
+    </section>
+    <nav id="horizontal-nav">
+        <h4>Horizontal Nav</h4>
+        <div class="menu-bar mobile-fixed-menu">
+            <ul id="main-menu">
+                <li class="">
+                    <a href="javascript:void(0)" class="nav-btn" role="menuitem">Menu Link</a></li>
+                <li id="submenu-1" class="submenu-container dropdown drop_hidden" data-button="nav-btn-1">
+                    <ul class="sub-menu" aria-hidden="false" role="menu">
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+                    </ul>
+                </li>
+                <li id="nav-btn-1" class="has-submenu">
+                    <a href="javascript:void(0)" class="siteMenu_collapsed nav-btn dropdown-btn" aria-haspopup="true" tabindex="0" data-dropdown="submenu-1">Submenu</a></li>
+                <li id="submenu-2" class="submenu-container dropdown drop_hidden" data-button="nav-btn-2">
 
-					<ul class="sub-menu" aria-hidden="false" role="menu">
-						<li class="has-submenu siteMenu_collapsed">
-							<a href="javascript:void(0)" role="menuitem" class="siteMenu_item" aria-haspopup="true" tabindex="0">Nested Submenu</a>
-							<ul class="sub-menu" aria-hidden="false" role="menu">
+                    <ul class="sub-menu" aria-hidden="false" role="menu">
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
+                        <li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
+                    </ul>
+                </li>
+                <li id="nav-btn-2" class="has-submenu">
+                    <a href="javascript:void(0)" class="nav-btn  dropdown-btn" aria-haspopup="true" tabindex="0" data-dropdown="submenu-2">Submenu</a></li>
+            </ul>
 
-								<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
-								<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
-								<li class="has-submenu siteMenu_collapsed">
-									<a href="javascript:void(0)" role="menuitem" class="siteMenu_item" aria-haspopup="true" tabindex="0">Nested Submenu</a>
-									<ul class="sub-menu" aria-hidden="false" role="menu">
-										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
-										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
-										<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
-						<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
-					</ul>
-				</li>
-				<li id="nav-btn-2" class="has-submenu"><a href="javascript:void(0)" class="siteMenu_collapsed nav-btn" aria-haspopup="true" tabindex="0">Submenu</a></li>
-			</ul>
+        </div>
+    </nav>
+    <footer>
 
-		</div>
-	</nav>
-
-	<section>
-		<div class="container">
-			<h1>Test Page</h1>
-			<h2>Heading 2</h2>
-			<h3>Heading 3</h3>
-			<h4>Heading 4</h4>
-			<h5>Heading 5</h5>
-			<h6>Heading 6</h6>
-			<p>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad. Ea nam error audiam, oratio nostrud pro id. Ut sea cetero labitur gubergren, munere maiorum nostrum vim ut, te feugiat vulputate cum. Choro volumus sapientem te sed, legimus splendide ad nec.</p>
-			<ul>
-				<li>Lorem ipsum dolor sit amet</li>
-				<li>Lorem ipsum dolor sit amet</li>
-				<li>Lorem ipsum dolor sit amet</li>
-				<li>
-					Lorem ipsum dolor sit amet
-					<ul>
-						<li>Lorem ipsum dolor sit amet</li>
-						<li>Lorem ipsum dolor sit amet</li>
-						<li>Lorem ipsum dolor sit amet</li>
-					</ul>
-				</li>
-			</ul>
-			<ol>
-				<li>Lorem ipsum dolor sit amet</li>
-				<li>Lorem ipsum dolor sit amet</li>
-				<li>Lorem ipsum dolor sit amet</li>
-			</ol>
-			<blockquote>Lorem ipsum dolor sit amet, sed docendi suscipit scripserit eu, persius invenire id sea. Ius dicant facilis propriae an, ut vim nonumy meliore lucilius, usu nonumes phaedrum ad.<cite>Cicero</cite></blockquote>
-		</div>
-		<div class="container">
-			<h4>Block Grid</h4>
-			<div class="block-grid">
-				<div><img src="./img/scifiThumb.png" title="scifi small placeholder" alt="scifi small placeholder" /></div>
-				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
-				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
-				<div><img src="./img/scifiThumb.png" title="scifi small placeholder" alt="scifi small placeholder" /></div>
-				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
-				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
-				<div><img src="./img/scifiThumb.png" title="scifi small placeholder" alt="scifi small placeholder" /></div>
-				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
-				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
-				<div><img src="./img/scifiThumb.png" title="scifi small placeholder" alt="scifi small placeholder" /></div>
-				<div><img src="./img/scifi.jpg" title="scifi placeholder" alt="scifi placeholder" /></div>
-				<div><img src="./img/pelicans.jpg" title="pelican placeholder" alt="pelican placeholder" /></div>
-			</div>
-		</div>
-		<div class="container">
-			<h4>Vertical Nav</h4>
-			<div class="row">
-				<div class="menu-bar vertical-menu column">
-					<a href="javascript:void(0)" id="side-nav-btn" class="siteMenu_collapsed nav-btn show-small" role="menuitem">Menu Link</a>
-					<div id="side-nav" class="submenu-container" data-button="side-nav-btn">
-						<ul class="sub-menu" aria-hidden="false" role="menu">
-							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 1</a></li>
-							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 2</a></li>
-							<li><a href="javascript:void(0)" role="menuitem">Submenu Link 3</a></li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="js/plugins.js"></script>
-	<script src="js/main.js"></script>
-	<script type="text/javascript">
-
-		$(document).ready(function () {
-
-			$('#main-menu  .submenu-container').each(function () {
-				$(this).siteMenu();
-			});
-
-			$('#side-nav').siteMenu({
-				mobileOnly: true
-			});
-			
-			$('.submenu-container').css('display', '');
-		});
-
-		$(document).resize(function () {
-
-		});
-
-	</script>
-
+    </footer>
+    <script src="js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
