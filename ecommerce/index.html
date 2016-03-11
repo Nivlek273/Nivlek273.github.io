@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="ffrStore">
+<head>
+	 <meta charset="utf-8">
+	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <title></title>
+	 <meta name="description" content="">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="main.css" />
+	 <script src="js/vendor/modernizr-custom.js"></script>
+	 <script src="js/vendor/respond.min.js"></script>
+	 <script src="js/vendor/rem.min.js"></script>
+	 <script src="js/vendor/html5shiv-printshiv.min.js"></script>
+</head>
+	<body ng-controller="StoreController as store">
+		<!--[if lt IE 8]>
+				<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+			<![endif]-->
+		
+		<header>
+			<div style="float:left;">
+				<a href="../index.html">Return</a>
+			</div>
+			<div id="title-area">
+				<h1>Featureless Flat Rectangles Store</h1>
+			</div>
+		</header>
+		<section id="intro-block">
+			<p>Featureless Flat Rectangles are all the rage in modern design. We'll help you pick out the perfect polygon for your project.</p>
+		</section>
+		<section id="home-selection">
+			<div class="ffr-size" ng-repeat="product in store.products" ng-class="'ffr-'+product.size"  ng-controller="TabController as tab">
+				<h4>{{product.size}}</h4>
+				<p>{{product.description}}</p>
+				<p>Dimensions: {{product.width}} x {{product.height}}</p>
+				<div>
+					<div class="menu-bar">
+						<ul>
+							<li ng-repeat="color in product.colors" ng-class="{ active:tab.isSet({{$index}}) }">
+								<a href ng-click="tab.setTab($index)">{{color}}</a>
+							</li>
+						</ul>
+					</div>
+					<div class="ffr-display">
+						<!--<div ng-show="tab.isSet({{$index}})" ng-repeat="color in product.colors" ng-class="'ffr-'+color"></div>-->
+						<div ng-class="'ffr-'+product.colors[tab.getTab()]" ng-style="{width:product.width+'rem', height:product.height+'rem'}"></div>
+					</div>
+				</div>
+				
+				<div class="ffr-buy">
+					<button>Add to Cart</button>
+				</div>
+				<div class="ffr-price">
+					{{ product.price*store.priceMultipliers.get(product.colors[tab.getTab()]) | currency }}
+				</div>
+			</div>
+		</section>
+			
+		<script src="js/vendor/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="js/vendor/angular.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
