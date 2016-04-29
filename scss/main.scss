@@ -643,6 +643,26 @@ header {
 	}
 }
 
+/* Main page */
+
+.sample {
+	display:inline-block;
+	max-width:14rem;
+	vertical-align:top;
+	padding: .5rem;
+	margin: 0 1rem;
+	
+	img {
+		border: solid 1px #ccc;
+		box-shadow:$shadow-1;
+		transition:box-shadow .2s;
+		
+		&:hover {
+			box-shadow: $shadow-1, $shadow-2;
+		}
+	}
+}
+
 /* Footer */
 
 footer {
